@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script src="https://kit.fontawesome.com/12f987d29c.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="font-['Alata']">
+
+<section class="bg-[#0B2B40]">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div class="w-full bg-white shadow shadow-[0_0_10px_3px_rgba(0,0,0,0.5)] rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+            <h1 class="text-center text-[#164773] text-2xl mt-10 font-bold">Register</h1>
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <form class="space-y-4 md:space-y-6" th:action="@{/}" method="post" th:object="${UserCreateDto}">
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium text-black">Your name</label>
+                        <input type="text" name="name" id="name" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-black border-gray-600 placeholder-gray-400 text-white focus:ring-[#ff006e] focus:border-[#ff006e]" placeholder="enter name" required="">
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-black">Your email</label>
+                        <input type="email" name="email" id="email" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-black border-gray-600 placeholder-gray-400 text-white focus:ring-[#ff006e] focus:border-[#ff006e]" placeholder="enter email" required="">
+                    </div>
+                    <div>
+                        <label for="password" class="block mb-2 text-sm font-medium text-black">Your password</label>
+                        <input type="password" name="password" id="password" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-black border-gray-600 placeholder-gray-400 text-white focus:ring-[#ff006e] focus:border-[#ff006e]" placeholder="enter password" required="">
+                    </div>
+                    <div>
+                        <label for="role" class="block mb-2 text-sm font-medium text-black">Your role</label>
+                        <input type="text" name="role" list="roles" id="role" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-black border-gray-600 placeholder-gray-400 text-white focus:ring-[#ff006e] focus:border-[#ff006e]" placeholder="enter role" required="">
+                        <datalist id="roles">
+                            <option>CUSTOMER</option>
+                            <option>SELLER</option>
+                        </datalist>
+                    </div>
+                    <button type="submit" class="w-full text-white focus:ring-4 focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 text-center bg-[#0B2B40] hover:bg-black focus:ring-black">Register</button>
+                    <p class="text-sm font-light text-black">
+                        Already have an account? <a href="/login" class="font-bold hover:underline text-black">Login</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="absolute text-xl text-white top-10 left-0 right-0 text-center" th:if="${message != null}">
+        <p th:text="${message}"></p>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+
+</body>
+</html>

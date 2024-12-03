@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Manage</title>
+  <script src="https://kit.fontawesome.com/12f987d29c.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+</head>
+<body>
+<section class="bg-[#ff006e] p-3 sm:p-5 h-[100vh]">
+  <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+
+    <!-- Home button -->
+    <a th:href="@{/}" class="absolute text-xl text-white top-5 left-5 rounded rounded-md bg-black z-[999] p-2 px-3 hover:cursor-pointer hover:scale-[120%] transition">
+      <i class="fa-solid fa-house"></i>
+    </a>
+
+    <div class="bg-black relative shadow-md sm:rounded-lg overflow-hidden">
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+        <div class="w-full md:w-1/2 text-white font-bold">
+          My Product Orders
+        </div>
+        <div class="flex justify-end m-5 space-x-5">
+          <a th:href="@{/products/seller-menu}">
+            <button class="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[#ff006e] hover:scale-[110%] transition focus:ring-gray-800" type="button">
+              <i class="fa-solid fa-list"></i> Product List
+            </button>
+          </a>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-100">
+          <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+          <tr>
+            <th scope="col" class="px-10 py-3">Product name</th>
+            <th scope="col" class="px-10 py-3">Category</th>
+            <th scope="col" class="px-10 py-3">Price</th>
+            <th scope="col" class="px-10 py-3">Amount</th>
+            <th scope="col" class="px-[20px] py-3">Status</th>
+            <th scope="col" class="py-3">
+              <span class="sr-only">Update status</span>
+            </th>
+          </tr>
+          </thead>
+          <tbody th:each="order: ${orders}">
+          <tr class="border-b border-gray-700">
+            <th scope="row" class="px-10 py-3 font-medium whitespace-nowrap text-white" th:text="${findProduct.get(order.getProductId()).getName()}"></th>
+            <td class="px-10 py-3" th:text="${findProduct.get(order.getProductId()).getCategory()}"></td>
+            <td class="px-10 py-3" th:text="${'$' + findProduct.get(order.getProductId()).getPrice()}"></td>
+            <td class="px-10 py-3" th:text="${order.getAmount()}"></td>
+            <td class="px-[20px] py-3" th:text="${order.getStatus()}"></td>
+            <td>
+              <form th:action="@{/orders/update-status}" method="post" class="flex">
+                <input type="hidden" th:value="${order.id}" name="orderId">
+                <select name="status" class="bg-gray-700 w-[50%] m-3 py-2 pl-2 pr-10 rounded-lg">
+                  <option value="PROCESSING">PROCESSING</option>
+                  <option value="SHIPPED">SHIPPED</option>
+                  <option value="DELIVERED">DELIVERED</option>
+                  <option value="FAILED">FAILED</option>
+                </select>
+                <button class="bg-blue-900 w-[40%] m-3 p-2 w-auto px-4 hover:bg-gray-700 rounded-lg">Change</button>
+              </form>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+
+</body>
+</html>

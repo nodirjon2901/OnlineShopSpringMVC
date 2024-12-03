@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+  <script src="https://kit.fontawesome.com/12f987d29c.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="font-['Alata'] bg-[#ff006e]">
+
+<div class="absolute top-0 w-full h-[80px] bg-black/90 -z-10"></div>
+
+<!-- Home button -->
+<a th:href="@{/}" class="absolute text-xl text-white top-5 left-5 rounded rounded-md bg-[#ff006e] z-[999] p-2 px-3 hover:cursor-pointer hover:scale-[120%] transition">
+  <i class="fa-solid fa-house"></i>
+</a>
+
+<a th:href="@{/orders/all}" class="absolute text-xl text-white top-5 right-5 rounded rounded-md bg-[#ff006e] z-[999] p-2 px-3 hover:cursor-pointer hover:scale-[120%] transition">
+  <i class="fa-solid fa-cart-shopping"></i>
+</a>
+
+<div class="flex justify-center m-5 space-x-5">
+  <a th:href="@{/products/all}">
+    <button class="block text-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-white hover:scale-[110%] transition focus:ring-gray-800" type="button">
+      <i class="fa-solid fa-bars"></i> ALL
+    </button>
+  </a>
+  <a th:href="@{|/products/${'TV'}|}">
+    <button class="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[#ff006e] hover:scale-[110%] transition focus:ring-gray-800" type="button">
+      <i class="fa-solid fa-tv"></i> TV
+    </button>
+  </a>
+  <a th:href="@{|/products/${'LAPTOP'}|}">
+    <button class="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[#ff006e] hover:scale-[110%] transition focus:ring-gray-800" type="button">
+      <i class="fa-solid fa-laptop"></i> Laptops
+    </button>
+  </a>
+  <a th:href="@{|/products/${'PHONE'}|}">
+    <button class="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[#ff006e] hover:scale-[110%] transition focus:ring-gray-800" type="button">
+      <i class="fa-solid fa-mobile-screen-button"></i> Phones
+    </button>
+  </a>
+</div>
+
+<div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+  <h2 class="sr-only">Products</h2>
+  <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+    <div th:each="product: ${allProducts}">
+      <a th:href="@{|/orders/${product.getId()}|}" class="hover:cursor-pointer">
+        <div class="bg-black group rounded-lg hover:border-black hover:translate-y-[-7px] transition hover:shadow-[0_0_10px_3px_#ffffff90] shadow-[0_0_10px_3px_rgba(0,0,0,0.5)]">
+          <div class="rounded-lg text-center py-15 p-4 aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-100 xl:aspect-h-8 xl:aspect-w-7">
+            <img th:src="@{/images/product.png}" alt="product image" class="h-full w-full object-cover object-center">
+          </div>
+          <h3 class="mt-4 pl-4 text-md text-white" th:text="${product.getName()}"></h3>
+          <p class="my-2 pl-4 text-lg font-bold text-white" th:text="${'$' + product.getPrice()}"></p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div th:if="${bookPage.totalPages > 0}" class="pagination"
+     th:each="pageNumber : ${pageNumbers}">
+  <a th:href="@{/listBooks(size=${bookPage.size}, page=${pageNumber})}"
+     th:text=${pageNumber}
+     th:class="${pageNumber==bookPage.number + 1} ? active"></a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+
+</body>
+</html>
